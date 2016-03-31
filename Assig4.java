@@ -12,16 +12,14 @@ class Assig4
   
   public static void main(String[] args)
   {
+    String[] str = {"S", "S", "S"};
+    
     JFrame window = new JFrame();
+    Ballot ball = new Ballot(1234, "Stuff", str);
     
     window.setSize(WIDTH, HEIGHT);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
-    JLabel msg = new JLabel("Monorail");
-	  msg.setFont(new Font("TimesRoman", Font.ITALIC, 48));
-	  msg.setForeground(Color.BLACK);
-	  
-	  window.add(msg);
+    window.add(ball);
 	  window.setVisible(true);
   }//main
 }//Assig4
