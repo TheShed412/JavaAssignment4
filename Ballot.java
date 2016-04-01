@@ -17,9 +17,13 @@ public class Ballot extends JPanel
     this.Id = Id;
     this.cate = cate;
     this.opts = new ArrayList<JPanel>();
+    ArrayList<Button> bl = new ArrayList<Button>();
     for(int i=0; i<opts.length; i++){
-      JButton butt = new JButton(opts[i]);
+      Button butt = new Button(opts[i]);
       JPanel pan = new JPanel();
+      butt.addActionListener(new ButtonListener(bl))
+      //butt.setEnabled(false);
+      bl.add(butt);
       pan.add(butt);
       this.opts.add(pan);
     }//for
@@ -40,4 +44,27 @@ public class Ballot extends JPanel
     }//for
     this.setVisible(true);
   }//buildPanel
+  
+  private class ButtonListener implements ActionListener
+  {
+    ArrayList<Button> al = new ArrayList<Button>();
+    
+    public ButtonListener(ArrayList<Button> bl)
+    {
+      al = bl;
+    }//constructor
+    
+    public void actionPerformed(ActionEvent e)
+    {
+      for(int i=0; i<al.size(); i++){
+        if(e.getSource() == al.get(i)){
+          al.get(i).select();
+        }else{
+          al.get(i).unselect();
+        }//if else
+      }//for
+    }//actionPerformed
+    
+  }//ButtonListener
+  
 }//ballot

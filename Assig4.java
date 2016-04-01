@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 class Assig4
 {
-  private static final int HEIGHT = 600;
+  private static final int HEIGHT = 300;
   private static final int WIDTH = 800;
   
   static ArrayList<Ballot> b = new ArrayList<Ballot>();
@@ -17,13 +17,20 @@ class Assig4
     String file = args[0];
     File f = new File(file);
     JFrame window = new JFrame();
+    JButton login = new JButton("Login to Vote");
+    JButton vote = new JButton("Cast Vote");
+    JPanel defaultButts = new JPanel();
+    
+    defaultButts.add(login);
+    defaultButts.add(vote);
     getBallots(f);
     
     window.setSize(WIDTH, HEIGHT);
-    window.setLayout(new GridLayout(1, b.size()+2));
+    window.setLayout(new GridLayout(1, b.size()+1));
     for(int i=0; i<b.size(); i++){
       window.add(b.get(i));
     }//for
+    window.add(defaultButts);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  window.setVisible(true);
   }//main
