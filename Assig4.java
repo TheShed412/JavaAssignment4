@@ -12,20 +12,12 @@ class Assig4
   
   static ArrayList<Ballot> b = new ArrayList<Ballot>();
   
-  public static void main(String[] args)
+  public static void main(String[] args) throws IOException
   {
-    String[] str = {"Sasdf", "Sasdf", "Sasdf", "asdf", "asdf"};
-    
+    String file = args[0];
+    File f = new File(file);
     JFrame window = new JFrame();
-    Ballot ball = new Ballot(1234, "Stuff", str);
-    Ballot ball2 = new Ballot(1234, "Stuf", str);
-    Ballot ball3 = new Ballot(1234, "Stu", str);
-    Ballot ball4 = new Ballot(1234, "St", str);
-    
-    b.add(ball);
-    b.add(ball2);
-    b.add(ball3);
-    b.add(ball4);
+    getBallots(f);
     
     window.setSize(WIDTH, HEIGHT);
     window.setLayout(new GridLayout(1, b.size()+2));
@@ -35,4 +27,28 @@ class Assig4
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  window.setVisible(true);
   }//main
+  
+  private static void getBallots(File file) throws IOException
+  {
+    int numBalls;
+    int id;
+    String cate;
+    String[] opts;
+    Scanner sc = new Scanner(file);
+    
+    numBalls = Integer.parseInt(sc.nextLine());
+    
+    for(int i=0; i<numBalls; i++){
+      String line = sc.nextLine();
+      String[] parse = line.split(":");
+      
+      id = Integer.parseInt(parse[0]);
+      cate = parse[1];
+      opts = parse[2].split(",");
+      
+      Ballot ball = new Ballot(id, cate, opts);
+      b.add(ball);
+    }//for
+  }//getBallots
+  
 }//Assig4
