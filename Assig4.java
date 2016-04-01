@@ -19,7 +19,10 @@ class Assig4
     JFrame window = new JFrame();
     JButton login = new JButton("Login to Vote");
     JButton vote = new JButton("Cast Vote");
+    vote.setEnabled(false);
     JPanel defaultButts = new JPanel();
+    
+    login.addActionListener(new VoteAction(b, vote));
     
     defaultButts.add(login);
     defaultButts.add(vote);
@@ -34,6 +37,28 @@ class Assig4
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  window.setVisible(true);
   }//main
+  
+  private static class VoteAction implements ActionListener
+  {
+    private ArrayList<Ballot> b;
+    private JButton vote;
+    
+    public VoteAction(ArrayList<Ballot> b, JButton vote)
+    {
+      this.b = b;
+      this.vote = vote;
+    }//constructor
+    
+    public void actionPerformed(ActionEvent e)
+    {
+      for(int i=0; i<b.size(); i++){
+        b.get(i).enableButtons();
+      }//for
+      
+      vote.setEnabled(true);
+      
+    }//actionPerfomred
+  }//vote action
   
   private static void getBallots(File file) throws IOException
   {
