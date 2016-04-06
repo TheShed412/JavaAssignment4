@@ -9,12 +9,17 @@ public class Person
 {
   int id;
   String name;
-  boolean voted;
+  boolean vote;
   
   public Person(int id, String name, boolean voted)
   {
     this.id = id;
     this.name = name;
-    this.voted = voted;
+    this.vote = voted;
   }//Person
+  
+  public void voted()
+  {
+    vote = true;
+  }//voted
 }//Person
