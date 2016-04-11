@@ -59,9 +59,12 @@ class Assig4
       ((JButton)e.getSource()).setEnabled(false);
     }//actionPerfomred
 
-    private void getPeople()
+    private String[] getPeople(String voterId)
     {
-     File voters = new File("voters.txt");
+      int id = Integer.parseInt(voterId);
+
+      File voters = new File("voters.txt");
+      Scanner sc = new Scanner(voters);
 
     }//stuff
   }//vote action
