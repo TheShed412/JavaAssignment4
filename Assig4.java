@@ -41,6 +41,7 @@ class Assig4
   private static class VoteAction implements ActionListener
   {
     private ArrayList<Ballot> b;
+    private ArrayList<Person> people;
     private JButton vote;
 
     public VoteAction(ArrayList<Ballot> b, JButton vote)
@@ -67,7 +68,6 @@ class Assig4
           }//catch
       }while(error);
 
-
       for(int i=0; i<b.size(); i++){
         b.get(i).enableButtons();
       }//for
@@ -78,18 +78,33 @@ class Assig4
     private boolean getPeople(String voterId) throws IOException
     {
       int id = Integer.parseInt(voterId);
-      ArrayList<String> people = new ArrayList<String>();
+      boolean match = false;
+      people = new ArrayList<Person>();
 
       File voters = new File("voters.txt");
       Scanner sc = new Scanner(voters);
 
       while(sc.hasNextLine()){
+        int newId;
+        String name;
+        boolean voted;
+        String[] split;
         String line = sc.nextLine();
-        people.add(line);
-        System.out.println(line);
-      }//while
 
-      return false;
+        split = line.split(":");
+        newId = Integer.parseInt(split[0]);
+        name = split[1];
+        voted = Boolean.parseBoolean(split[2]);
+
+        Person p = new Person(newId, name, voted);
+        people.add(p);
+
+        if(newId == id){
+          match = true;
+        }//if
+      }//while
+      System.out.println(match);
+      return !match;
     }//stuff
   }//vote action
 
