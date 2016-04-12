@@ -51,21 +51,45 @@ class Assig4
 
     public void actionPerformed(ActionEvent e)
     {
+      String id;
+      boolean error = false;
+
+      do{
+          id = JOptionPane.showInputDialog("Enter Voter ID");
+          if((id == null)){
+            //System.out.println("Exit");
+            System.exit(0);
+          }//if for cancel button
+          try{error = getPeople(id);}
+          catch(IOException | NumberFormatException ex){
+            System.out.println(ex);
+            error = true;
+          }//catch
+      }while(error);
+
+
       for(int i=0; i<b.size(); i++){
         b.get(i).enableButtons();
       }//for
-
       vote.setEnabled(true);
       ((JButton)e.getSource()).setEnabled(false);
     }//actionPerfomred
 
-    private String[] getPeople(String voterId)
+    private boolean getPeople(String voterId) throws IOException
     {
       int id = Integer.parseInt(voterId);
+      ArrayList<String> people = new ArrayList<String>();
 
       File voters = new File("voters.txt");
       Scanner sc = new Scanner(voters);
 
+      while(sc.hasNextLine()){
+        String line = sc.nextLine();
+        people.add(line);
+        System.out.println(line);
+      }//while
+
+      return false;
     }//stuff
   }//vote action
 
