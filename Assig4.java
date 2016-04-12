@@ -40,6 +40,8 @@ class Assig4
 
   private static class VoteAction implements ActionListener
   {
+    /*Add the cast vote button to this so I have access to the
+    person array list. Use the getSource to do the other things I have to do.*/
     private ArrayList<Ballot> b;
     private ArrayList<Person> people;
     private JButton vote;
@@ -79,6 +81,8 @@ class Assig4
     {
       int id = Integer.parseInt(voterId);
       boolean match = false;
+      int voter = 0;
+      int counter = 0;;
       people = new ArrayList<Person>();
 
       File voters = new File("voters.txt");
@@ -101,11 +105,18 @@ class Assig4
 
         if(newId == id){
           match = true;
+          voter = counter;
         }//if
+        counter++;
       }//while
-      System.out.println(match);
+      if(match){
+        JOptionPane.showMessageDialog(null, "Welcome, "+people.get(voter).name+"!");
+      }else{
+        JOptionPane.showMessageDialog(null, "No such person exists.");
+      }//if
       return !match;
     }//stuff
+
   }//vote action
 
   private static void getBallots(File file) throws IOException
