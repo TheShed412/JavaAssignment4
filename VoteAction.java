@@ -10,13 +10,15 @@ public class VoteAction implements ActionListener
   /*Add the cast vote button to this so I have access to the
   person array list. Use the getSource to do the other things I have to do.*/
   private ArrayList<Ballot> b;
-  private ArrayList<Person> people;
+  private static ArrayList<Person> people;
   private JButton vote;
+  private JButton login;
 
-  public VoteAction(ArrayList<Ballot> b, JButton vote)
+  public VoteAction(ArrayList<Ballot> b, JButton vote, JButton login)
   {
     this.b = b;
     this.vote = vote;
+    this.login = login;
   }//constructor
 
   public void actionPerformed(ActionEvent e)
@@ -55,7 +57,16 @@ public class VoteAction implements ActionListener
           try{safeSave(idNum, butt);}
           catch (Exception ex){}
         }//for
+        try{saveVoters();
+            JOptionPane.showMessageDialog(null,"Thank you for voting!");
+            String[] a = {};}
+        catch (Exception ex){System.out.println(e);}
 
+        for(int i=0; i<b.size(); i++){
+          b.get(i).disableButtons();
+        }//for
+        login.setEnabled(true);
+        ((JButton)e.getSource()).setEnabled(false);
       }else{
         JOptionPane.getRootFrame().dispose();
       }//if else
@@ -84,8 +95,7 @@ public class VoteAction implements ActionListener
         }//for
         pw.close();
         sc.close();
-        System.out.println(id);
-        System.out.println(check.delete());
+        check.delete();
         temp.renameTo(new File(id+".txt"));
       }//if
 
@@ -144,7 +154,20 @@ public class VoteAction implements ActionListener
     else{
       JOptionPane.showMessageDialog(null, "There is no one with that number.");
     }//if
+    sc.close();
     return !match;
   }//stuff
 
+  private void saveVoters() throws IOException
+  {
+    File voters = new File("voters.txt");
+      File vTemp = new File("vtemp.txt");
+      PrintWriter pw = new PrintWriter(vTemp);
+      for(int i=0; i<people.size();i++){
+        pw.println(people.get(i).id+":"+people.get(i).name+":"+people.get(i).vote);
+      }//for
+      pw.close();
+      voters.delete();
+      vTemp.renameTo(voters);
+  }//saveVoters
 }//vote action

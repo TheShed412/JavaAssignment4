@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class Assig4
+public class Assig4
 {
   private static final int HEIGHT = 300;
   private static final int WIDTH = 800;
@@ -22,8 +22,8 @@ class Assig4
     vote.setEnabled(false);
     JPanel defaultButts = new JPanel();
 
-    login.addActionListener(new VoteAction(b, vote));
-    vote.addActionListener(new VoteAction(b, vote));
+    login.addActionListener(new VoteAction(b, vote, login));
+    vote.addActionListener(new VoteAction(b, vote, login));
 
     defaultButts.add(login);
     defaultButts.add(vote);

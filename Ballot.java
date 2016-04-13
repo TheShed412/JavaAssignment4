@@ -43,6 +43,17 @@ public class Ballot extends JPanel
     }//for
   }//enableButtons
 
+  public void disableButtons()
+  {
+    for(int i=0; i<bl.size(); i++){
+      bl.get(i).setEnabled(false);
+    }//for
+
+    for(int i=0; i<opts.size(); i++){
+      opts.get(i).setVisible(true);
+    }//for
+  }//enableButtons
+
   private void buildPanel()
   {
     JLabel cate = new JLabel(this.cate);
