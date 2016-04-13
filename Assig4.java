@@ -23,6 +23,7 @@ class Assig4
     JPanel defaultButts = new JPanel();
 
     login.addActionListener(new VoteAction(b, vote));
+    vote.addActionListener(new VoteAction(b, vote));
 
     defaultButts.add(login);
     defaultButts.add(vote);

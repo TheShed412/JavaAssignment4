@@ -7,15 +7,15 @@ import java.awt.event.*;
 
 public class Ballot extends JPanel
 {
-  int Id;
+  int id;
   String cate;
   JPanel cPanel;
   ArrayList<JPanel> opts;
   ArrayList<Button> bl;
 
-  public Ballot(int Id, String cate, String[] opts)
+  public Ballot(int id, String cate, String[] opts)
   {
-    this.Id = Id;
+    this.id = id;
     this.cate = cate;
     this.opts = new ArrayList<JPanel>();
     bl = new ArrayList<Button>();
