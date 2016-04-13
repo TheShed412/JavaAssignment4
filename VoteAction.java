@@ -52,7 +52,8 @@ public class VoteAction implements ActionListener
         for(int i=0;i<b.size();i++){
           int idNum = (b.get(i)).id;
           butt = (b.get(i)).bl;
-          safeSave(idNum, butt);
+          try{safeSave(idNum, butt);}
+          catch (Exception ex){}
         }//for
 
       }else{
@@ -61,8 +62,42 @@ public class VoteAction implements ActionListener
     }//
   }//actionPerfomred
 
-  private void safeSave(int id, ArrayList<Button> butt)
+  private void safeSave(int id, ArrayList<Button> butt) throws IOException
   {
+      File temp = new File("temp.txt");
+      File check = new File(id+".txt");
+
+      if(check.exists()){
+        Scanner sc = new Scanner(check);
+        PrintWriter pw = new PrintWriter(temp);
+        int[] numVotes = new int[butt.size()];
+        int j = 0;
+        while(sc.hasNextLine()){
+          String line = sc.nextLine();
+          String[] stuff = line.split(":");
+           numVotes[j] = Integer.parseInt(stuff[1]);
+           j++;
+        }//while
+        for(int i=0; i<butt.size(); i++){
+          butt.get(i).votes += numVotes[i];
+          pw.println(butt.get(i).name+":"+butt.get(i).votes);
+        }//for
+        pw.close();
+        sc.close();
+        System.out.println(id);
+        System.out.println(check.delete());
+        temp.renameTo(new File(id+".txt"));
+      }//if
+
+      else{
+        PrintWriter pw = new PrintWriter(temp);
+        for(int i=0; i<butt.size(); i++){
+          pw.println(butt.get(i).name+":"+butt.get(i).votes);
+        }//for
+        pw.close();
+        check.delete();
+        temp.renameTo(check);
+      }//else
 
   }//safeSave
 
@@ -100,6 +135,7 @@ public class VoteAction implements ActionListener
     }//while
     if(match && (people.get(voter).vote == false)){
       JOptionPane.showMessageDialog(null, "Welcome, "+people.get(voter).name+"!");
+      people.get(voter).voted();
     }
     else if(match && (people.get(voter).vote == true)){
       JOptionPane.showMessageDialog(null, people.get(voter).name+" has already voted.");
